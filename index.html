@@ -31,26 +31,7 @@
       <option value="5">5 ⭐ فقط</option>
     </select>
 
-    <div class="flex gap-2">
-      <button id="filterAll" class="bg-gray-200 px-3 py-1 rounded">الكل</button>
-      <button id="filterFav" class="bg-red-200 px-3 py-1 rounded">المفضلة ❤️</button>
-    </div>
-  </section>
-
-  <!-- لوحة الإحصائيات -->
-  <section id="dashboard" class="max-w-6xl mx-auto px-4 mb-6 grid grid-cols-1 md:grid-cols-3 gap-4">
-    <div class="bg-white shadow rounded-lg p-4 text-center">
-      <h3 class="text-lg font-semibold text-gray-700">إجمالي المحامص</h3>
-      <p id="totalCount" class="text-2xl font-bold text-blue-600">0</p>
-    </div>
-    <div class="bg-white shadow rounded-lg p-4 text-center">
-      <h3 class="text-lg font-semibold text-gray-700">المفضلة ❤️</h3>
-      <p id="favCount" class="text-2xl font-bold text-pink-600">0</p>
-    </div>
-    <div class="bg-white shadow rounded-lg p-4 text-center">
-      <h3 class="text-lg font-semibold text-gray-700">أعلى تقييم ⭐</h3>
-      <p id="topRating" class="text-2xl font-bold text-yellow-500">0 ⭐</p>
-    </div>
+    <button id="filterFav" class="bg-red-200 px-3 py-1 rounded">المفضلة ❤️</button>
   </section>
 
   <!-- البطاقات -->
@@ -83,7 +64,6 @@ function saveData(){ localStorage.setItem("roasters", JSON.stringify(roasters));
 
 function renderCard(r){
   const card=document.createElement("div");
-  card.id="card-"+r.id;
   card.className="bg-white shadow rounded-lg p-4 flex flex-col items-center text-center";
 
   card.innerHTML=`
@@ -118,7 +98,7 @@ function renderCard(r){
 function renderRoasters(){
   const list=document.getElementById("roastersList");
   list.innerHTML="";
-  let filtered=roasters;
+  let filtered=[...roasters];
 
   const q=document.getElementById("search").value.toLowerCase();
   if(q) filtered=filtered.filter(r=>r.name.toLowerCase().includes(q)||r.city.toLowerCase().includes(q));
@@ -132,7 +112,6 @@ function renderRoasters(){
   if(minRating>0) filtered=filtered.filter(r=>r.rating>=minRating);
 
   filtered.forEach(r=>list.appendChild(renderCard(r)));
-  updateDashboard();
 }
 
 function addRoaster(e){
@@ -179,18 +158,13 @@ function editRoaster(id){
   window.scrollTo({top:document.body.scrollHeight,behavior:"smooth"});
 }
 
-function updateDashboard(){
-  document.getElementById("totalCount").textContent = roasters.length;
-  document.getElementById("favCount").textContent = roasters.filter(r=>r.favorite).length;
-  const top = roasters.length ? Math.max(...roasters.map(r=>r.rating)) : 0;
-  document.getElementById("topRating").textContent = top + " ⭐";
-}
-
 document.getElementById("roasterForm").onsubmit=addRoaster;
 document.getElementById("search").oninput=renderRoasters;
 document.getElementById("sort").onchange=renderRoasters;
 document.getElementById("filterRating").onchange=renderRoasters;
-document.getElementById("filterAll").onclick=()=>{showFavoritesOnly=false;renderRoasters();};
-document.getElementById("filterFav").onclick=()=>{showFavoritesOnly=true;renderRoasters();};
+document.getElementById("filterFav").onclick=()=>{showFavoritesOnly=!showFavoritesOnly;renderRoasters();};
 
 renderRoasters();
+</script>
+</body>
+</html>
