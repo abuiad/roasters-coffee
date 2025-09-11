@@ -1,17 +1,22 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>محامص القهوة المختصة</title>
+  <title>دليل محامص القهوة المختصة</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100 font-sans">
 
-  <!-- الهيدر -->
-  <header class="bg-white shadow mb-6 p-6 text-center">
-    <h1 class="text-3xl font-bold text-gray-800">☕ محامص القهوة المختصة</h1>
-    <p class="text-gray-500">استكشف - قيّم - أضف محمصتك المفضلة</p>
+  <!-- الهيدر مع صورة خلفية -->
+  <header class="relative shadow mb-6 text-center text-white">
+    <div class="absolute inset-0 bg-black/50"></div> <!-- طبقة شفافة -->
+    <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93" 
+         alt="coffee" class="w-full h-52 object-cover">
+    <div class="absolute inset-0 flex flex-col items-center justify-center">
+      <h1 class="text-3xl font-bold drop-shadow-lg">☕ محامص القهوة المختصة</h1>
+      <p class="text-gray-200">استكشف - قيّم - أضف محمصتك المفضلة</p>
+    </div>
   </header>
 
   <!-- الأدوات -->
